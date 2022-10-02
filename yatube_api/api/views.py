@@ -11,13 +11,13 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post_id = self.kwargs.get('post_id')
-        post = get_object_or_404(Post, pk=post_id)
+        post = get_object_or_404(Post, id=post_id)
         queryset = post.comments.all()
         return queryset
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
-        post = get_object_or_404(Post, pk=post_id)
+        post = get_object_or_404(Post, id=post_id)
         serializer.save(author=self.request.user, post=post)
 
     def perform_destroy(self, instance):
